@@ -1,4 +1,4 @@
-package hu.hasza.cocktailapp.model
+package hu.hasza.cocktailapp.data.model
 
 class Ingridient(
     name: String,
