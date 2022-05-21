@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.addorupdate.AddOrUpdateCocktailFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/addUpdateImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+            <Button
+                android:id="@+id/addImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addUpdateImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Add Image" />
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addImageButton"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:text="TITLE:"
+                android:layout_marginTop="10dp"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/titleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleTextView"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:inputType="text"
+                android:hint="Cocktail Title" />
+
+            <TextView
+                android:id="@+id/prepTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleEditText"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="PREPARATION:"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/preparationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/prepTextView"
+                android:gravity="center"
+                android:hint="Preparation" />
+
+            <TextView
+                android:id="@+id/ingrTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/preparationEditText"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:text="INGRIDIENTS:" />
+
+            <RelativeLayout
+                android:id="@+id/ingridient1Holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/ingrTextView">
+
+                <EditText
+                    android:id="@+id/ingridient1"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingridient 1"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/amount1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/ingridient1"
+                    android:layout_marginStart="10dp"
+                    android:hint="Amount"
+                    android:inputType="text" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ingridient2Holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/ingridient1Holder">
+
+                <EditText
+                    android:id="@+id/ingridient2"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingridient 2"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/amount2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/ingridient2"
+                    android:hint="Amount"
+                    android:inputType="text" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ingridient3Holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/ingridient2Holder">
+
+                <EditText
+                    android:id="@+id/ingridient3"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingridient 3"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/amount3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/ingridient3"
+                    android:layout_marginStart="10dp"
+                    android:hint="Amount"
+                    android:inputType="text" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ingridient4Holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/ingridient3Holder">
+
+                <EditText
+                    android:id="@+id/ingridient4"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingridient 4"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/amount4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/ingridient4"
+                    android:layout_marginStart="10dp"
+                    android:hint="Amount"
+                    android:inputType="text" />
+            </RelativeLayout>
+            <Button
+                android:id="@+id/addOrUpdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ingridient4Holder"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="CREATE" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
