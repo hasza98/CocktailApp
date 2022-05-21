@@ -1,20 +1,16 @@
 package hu.hasza.cocktailapp.data.local
 
-import androidx.room.DatabaseConfiguration
-import androidx.room.InvalidationTracker
+import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
+import hu.hasza.cocktailapp.data.model.DetailedDrink
+import hu.hasza.cocktailapp.data.model.Drink
 
-class CocktailDatabase : RoomDatabase(){
-    override fun createOpenHelper(config: DatabaseConfiguration?): SupportSQLiteOpenHelper {
-        TODO("Not yet implemented")
-    }
+@Database(entities = [Drink::class], version = 2)
+abstract class CocktailDatabase : RoomDatabase() {
 
-    override fun createInvalidationTracker(): InvalidationTracker {
-        TODO("Not yet implemented")
-    }
+    abstract fun CocktailDao(): CocktailDao
 
-    override fun clearAllTables() {
-        TODO("Not yet implemented")
+    companion object {
+        val DATABASE_NAME: String = "drinks_db"
     }
 }

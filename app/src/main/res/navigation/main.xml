@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/cocktail_list_tab_fragment"
+    android:id="@+id/main">
+
+    <fragment
+        android:id="@+id/cocktail_list_tab_fragment"
+        android:name="hu.hasza.cocktailapp.ui.tab.TabFragment"
+        android:label="Cocktails"
+        tools:layout="@layout/fragment_tab" >
+        <action
+            android:id="@+id/action_cocktail_list_tab_fragment_to_cocktail_detail_fragment"
+            app:destination="@id/cocktail_detail_fragment" />
+        <action
+            android:id="@+id/action_cocktail_list_tab_fragment_to_cocktail_addorupdate_fragment"
+            app:destination="@id/cocktail_addorupdate_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cocktail_detail_fragment"
+        android:name="hu.hasza.cocktailapp.ui.details.CocktailDetailFragment"
+        android:label="CocktailDetails"
+        tools:layout="@layout/fragment_cocktail_detail" >
+        <action
+            android:id="@+id/action_cocktail_detail_fragment_to_cocktail_list_tab_fragment"
+            app:destination="@id/cocktail_list_tab_fragment" />
+        <action
+            android:id="@+id/action_cocktail_detail_fragment_to_cocktail_addorupdate_fragment"
+            app:destination="@id/cocktail_addorupdate_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cocktail_addorupdate_fragment"
+        android:name="hu.hasza.cocktailapp.ui.addorupdate.AddOrUpdateCocktailFragment"
+        android:label="AddOrUpdate"
+        tools:layout="@layout/fragment_add_or_update_cocktail" >
+        <action
+            android:id="@+id/action_cocktail_addorupdate_fragment_to_cocktail_list_tab_fragment"
+            app:destination="@id/cocktail_list_tab_fragment" />
+        <action
+            android:id="@+id/action_cocktail_addorupdate_fragment_to_cocktail_detail_fragment"
+            app:destination="@id/cocktail_detail_fragment" />
+    </fragment>
+</navigation>
