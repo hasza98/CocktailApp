@@ -19,6 +19,9 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import hu.hasza.cocktailapp.R
 import kotlinx.android.synthetic.main.fragment_cocktail_detail.progressBarHolder
 import kotlinx.android.synthetic.main.fragment_cocktail_list.*
@@ -31,6 +34,8 @@ class CocktailDetailFragment : Fragment() {
     private var isFavourite : Boolean = false
     private lateinit var currentDrink : DetailedDrink
 
+    private lateinit var analytics: FirebaseAnalytics
+
     private val cocktailDetailViewModel : CocktailDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +43,11 @@ class CocktailDetailFragment : Fragment() {
         arguments?.let {
             drinkId = it.getInt(DRINKID)
         }
+
+        analytics = Firebase.analytics
+        val bundle = Bundle()
+        bundle.putString("name", "cocktail_detail")
+        analytics.logEvent("fragment_open", bundle)
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -65,12 +75,18 @@ class CocktailDetailFragment : Fragment() {
                 isFavourite = true
                 cocktailDetailViewModel.addCocktailToFavourites(currentDrink)
                 Toast.makeText(context, "Added to Favourites!", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("name", currentDrink.strDrink)
+                analytics.logEvent("add_to_favourites", bundle)
             }
             else {
                 like_star.setImageDrawable(AppCompatResources.getDrawable(context!!, R.drawable.ic_star_outline_24))
                 isFavourite = false
                 cocktailDetailViewModel.removeCocktailFromFavourites(currentDrink)
                 Toast.makeText(context, "Removed from Favourites!", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("name", currentDrink.strDrink)
+                analytics.logEvent("remove_from_favourites", bundle)
             }
         }
         fab.setOnClickListener {

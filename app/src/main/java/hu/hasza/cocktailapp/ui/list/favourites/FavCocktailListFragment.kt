@@ -10,6 +10,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import hu.hasza.cocktailapp.R
 import hu.hasza.cocktailapp.data.model.DetailedDrink
@@ -30,11 +33,18 @@ class FavCocktailListFragment : Fragment(), MyFavDrinkRecyclerViewAdapter.DrinkL
 
     private val favCocktailListViewModel : FavCocktailListViewModel by viewModels()
 
+    private lateinit var analytics: FirebaseAnalytics
+
     private var columnCount = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        analytics = Firebase.analytics
+
+        val bundle = Bundle()
+        bundle.putString("name", "cocktail_fav_list")
+        analytics.logEvent("fragment_open", bundle)
         subscribeObservers()
     }
 
