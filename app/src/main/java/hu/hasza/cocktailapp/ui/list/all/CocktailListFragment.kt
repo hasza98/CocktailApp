@@ -12,6 +12,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import hu.hasza.cocktailapp.R
 import hu.hasza.cocktailapp.data.model.Drink
@@ -29,13 +32,20 @@ class CocktailListFragment : Fragment(), MyDrinkRecyclerViewAdapter.DrinkListCli
 
     private val cocktailListViewModel : CocktailListViewModel by viewModels()
 
+    private lateinit var analytics: FirebaseAnalytics
+
     private var columnCount = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        analytics = Firebase.analytics
+
         cocktailListViewModel.start()
         subscribeObservers()
+        val bundle = Bundle()
+        bundle.putString("name", "cocktail_list")
+        analytics.logEvent("fragment_open", bundle)
     }
 
     override fun onCreateView(
@@ -88,6 +98,9 @@ class CocktailListFragment : Fragment(), MyDrinkRecyclerViewAdapter.DrinkListCli
             override fun onQueryTextChange(text: String?): Boolean {
                 if (text != null) {
                     if(text.isNotEmpty()) {
+                        val bundle = Bundle()
+                        bundle.putString("search_text", text)
+                        analytics.logEvent("search_cocktail", bundle)
                         cocktailListViewModel.search(text)
                     }
                     else {
@@ -108,6 +121,9 @@ class CocktailListFragment : Fragment(), MyDrinkRecyclerViewAdapter.DrinkListCli
     }
 
     override fun onClickDrinkList(drinkId: Int) {
+        val anbundle = Bundle()
+        anbundle.putInt("cocktail_id", drinkId)
+        analytics.logEvent("view_details", anbundle)
         val bundle = bundleOf("drinkId" to drinkId)
         findNavController(this.view!!).navigate(R.id.action_cocktail_list_tab_fragment_to_cocktail_detail_fragment, bundle)
     }

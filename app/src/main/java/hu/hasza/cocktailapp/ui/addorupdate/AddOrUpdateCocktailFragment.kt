@@ -26,8 +26,9 @@ import android.net.Uri
 import android.widget.Toast
 
 import androidx.core.app.ActivityCompat.startActivityForResult
-
-
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 
 @AndroidEntryPoint
@@ -37,6 +38,7 @@ class AddOrUpdateCocktailFragment : Fragment() {
     private lateinit var currentDrink : DetailedDrink
     private var imageUrl : String = ""
     var SELECT_PICTURE = 200
+    private lateinit var analytics: FirebaseAnalytics
 
     private val addOrUpdateCocktailViewModel : AddOrUpdateCocktailViewModel by viewModels()
 
@@ -45,6 +47,11 @@ class AddOrUpdateCocktailFragment : Fragment() {
         arguments?.let {
             drinkId = it.getInt(DRINKID)
         }
+
+        analytics = Firebase.analytics
+        val bundle = Bundle()
+        bundle.putString("name", "add_or_update")
+        analytics.logEvent("fragment_open", bundle)
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -98,6 +105,10 @@ class AddOrUpdateCocktailFragment : Fragment() {
                 toUpdate.strMeasure3 = amount3.text.toString()
                 toUpdate.strMeasure4 = amount4.text.toString()
                 addOrUpdateCocktailViewModel.addOrUpdate(toUpdate)
+                val bundle = Bundle()
+                bundle.putInt("id", toUpdate.idDrink)
+                bundle.putString("name", toUpdate.strDrink)
+                analytics.logEvent("update_cocktail", bundle)
             }
             else {
                 val toCreate = DetailedDrink()
@@ -114,6 +125,10 @@ class AddOrUpdateCocktailFragment : Fragment() {
                 toCreate.strMeasure3 = amount3.text.toString()
                 toCreate.strMeasure4 = amount4.text.toString()
                 addOrUpdateCocktailViewModel.addOrUpdate(toCreate)
+                val bundle = Bundle()
+                bundle.putInt("id", toCreate.idDrink)
+                bundle.putString("name", toCreate.strDrink)
+                analytics.logEvent("create_cocktail", bundle)
             }
         }
     }

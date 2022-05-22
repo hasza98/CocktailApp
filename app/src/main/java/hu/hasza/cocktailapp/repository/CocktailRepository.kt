@@ -1,6 +1,10 @@
 package hu.hasza.cocktailapp.repository
 
 
+import android.os.Bundle
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import hu.hasza.cocktailapp.data.local.CocktailDao
 import hu.hasza.cocktailapp.data.local.CocktailDatabase
 import hu.hasza.cocktailapp.data.model.DetailedDrink
@@ -21,7 +25,12 @@ class CocktailRepository @Inject constructor(
     private val cocktailApi: CocktailApi,
     private val cocktailDao: CocktailDao
 ){
+    private var analytics: FirebaseAnalytics = Firebase.analytics
+
     suspend fun getCocktails(): Flow<DataState<Drinks>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "getCocktails")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             val cocktails = cocktailApi.getCocktails()
@@ -33,6 +42,9 @@ class CocktailRepository @Inject constructor(
     }
 
     suspend fun searchCocktails(name : String): Flow<DataState<Drinks>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "searchCocktails")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             val cocktails = cocktailApi.searchCocktails(name)
@@ -44,6 +56,9 @@ class CocktailRepository @Inject constructor(
     }
 
     suspend fun getCocktailDetails(cocktailId : Int): Flow<DataState<DetailedDrinks>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "getCocktailDetails")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             val cocktail = cocktailApi.getCocktailDetails(cocktailId)
@@ -55,6 +70,9 @@ class CocktailRepository @Inject constructor(
     }
 
     suspend fun getFavourites() : Flow<DataState<List<Drink>>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "getFavourites")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             val favourites = cocktailDao.getFavourites()
@@ -66,14 +84,23 @@ class CocktailRepository @Inject constructor(
     }
 
     suspend fun addToFavourites(cocktail : Drink) {
+        val bundle = Bundle()
+        bundle.putString("function", "addToFavourites")
+        analytics.logEvent("repository_called", bundle)
         cocktailDao.insert(cocktail)
     }
 
     suspend fun removeFromFavourites(cocktail : Drink) {
+        val bundle = Bundle()
+        bundle.putString("function", "removeFromFavourites")
+        analytics.logEvent("repository_called", bundle)
         cocktailDao.remove(cocktail)
     }
 
     suspend fun checkIfFavourite(id: Int) : Flow<DataState<Boolean>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "checkIfFavourite")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             val isFavourite = cocktailDao.isFavourite(id)
@@ -85,6 +112,9 @@ class CocktailRepository @Inject constructor(
     }
 
     suspend fun addNewCocktail(cocktail: DetailedDrink) : Flow<DataState<Int>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "addNewCocktail")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             // API FUNCTION DOESNT EXIST REPLACED WITH MOCK RETURN
@@ -99,6 +129,9 @@ class CocktailRepository @Inject constructor(
     }
 
     suspend fun updateCocktail(cocktail: DetailedDrink) : Flow<DataState<Int>> = flow{
+        val bundle = Bundle()
+        bundle.putString("function", "updateCocktail")
+        analytics.logEvent("repository_called", bundle)
         emit(DataState.Loading)
         try {
             // API FUNCTION DOESNT EXIST REPLACED WITH MOCK RETURN
